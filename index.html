@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sal’s Strawberry Saloon</title>
   <link rel="stylesheet" href="style.css" />
-<<<<<<< HEAD
 
   <!-- firebase start ****************************************-->
   <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
@@ -15,20 +14,20 @@
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+
   <!--Your web app's Firebase configuration!-->
   <!-- firebase end ******************************************-->
   <script src="fb_setup.js"></script>
   <script src="fb_io.js"></script>
-
-=======
->>>>>>> 73cb5639fbd0ab3c904271adf8ffd4ba2e260a93
 </head>
 
 <body>
   <div class="container">
+
+    <h1 id="displayName"></h1>
     <h2>Sal’s Strawberry Saloon</h2>
     <h3>(and other fruit products)</h3>
-  
+
 
     <button onclick="fb_authenticate()">Login with Google</button>
 
@@ -46,6 +45,8 @@
     </form>
 
     <button onclick="writeForm()">Submit</button>
+    <button onclick="generateEmail()">Generate Email</button>
+    <div id="marketingEmail"></div>
     
     <p id="statusMessage"></p>
   </div>

@@ -60,27 +60,29 @@ function writeForm() {
     //add the user to the customer database
     firebase.database().ref('/customers/').set({
 
-        User: { 
-            name
+        User: {
+            Name: name,
+            Amount: fruitQuantity,
+            Favorite: favoriteFruit,
         },
-        favourite_food: {
-            favoriteFruit
 
-        },
-        quantity: {
-            fruitQuantity
-        }
-    
     });
 
-    // firebase.database().ref('/customers/quantity/').set({
-    //     fruitQuantity
-    // });
+    //Display the users name once they enter their details
+    document.getElementById("displayName").innerHTML = "Hello " + name + "!";
 
 }
+
+//create the initial table to store user data in the database
 function createUserTable() {
     customers = {
 
     }
     firebase.database().ref('/').set(customers)
+}
+
+//generate a marketing email
+function generateEmail() {
+    document.getElementById("marketingEmail").innerHTML = "Hello " + name + "!";
+       
 }
