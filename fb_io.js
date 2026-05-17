@@ -6,6 +6,14 @@
  **                                                          **
  **************************************************************
  **************************************************************/
+
+/***************************************************************
+//                       Variables                            //
+***************************************************************/
+var favoriteFruit;
+var fruitQuantity;
+var usersName;
+/***************************************************************/
 function fb_authenticate() {
     console.log("Logging in")
     firebase.auth().onAuthStateChanged((user) => {
@@ -49,10 +57,10 @@ console.log("Running Sal's Strawberries")
 
 function writeForm() {
     // Get the form data
-    const favoriteFruit = document.getElementById("favoriteFruit").value;
-    const name = document.getElementById("name").value;
-    const fruitQuantity = document.getElementById("fruitQuantity").value;
-    console.log("Hello " + name + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
+    favoriteFruit = document.getElementById("favoriteFruit").value;
+    usersName = document.getElementById("name").value;
+    fruitQuantity = document.getElementById("fruitQuantity").value;
+    console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
 
     //creates the user table and adds them as a user
     createUserTable()
@@ -61,7 +69,7 @@ function writeForm() {
     firebase.database().ref('/customers/').set({
 
         User: {
-            Name: name,
+            Name: usersName,
             Amount: fruitQuantity,
             Favorite: favoriteFruit,
         },
@@ -69,7 +77,7 @@ function writeForm() {
     });
 
     //Display the users name once they enter their details
-    document.getElementById("displayName").innerHTML = "Hello " + name + "!";
+    document.getElementById("displayName").innerHTML = "Hello " + usersName;
 
 }
 
@@ -83,6 +91,12 @@ function createUserTable() {
 
 //generate a marketing email
 function generateEmail() {
-    document.getElementById("marketingEmail").innerHTML = "Hello " + name + "!";
-       
+    document.getElementById("marketingEmail").innerHTML = "Hello " + usersName + "!" + "\nPress 'affirm' to receive " + fruitQuantity + " " + favoriteFruit + " by tommorow!";
+    
 }
+
+// function affirmPurchase() {
+//     console.log("purchase complete");
+//     var x = document.getElementById(affirmButton);
+//     if(affirmButton.style.display === none) affirmButton.display = "none";
+// }

@@ -45,9 +45,12 @@
     </form>
 
     <button onclick="writeForm()">Submit</button>
-    <button onclick="generateEmail()">Generate Email</button>
-    <div id="marketingEmail"></div>
     
+    <!--Reveal the marketing email preview-->
+    <button onclick="generateEmail()">Generate Email</button>
+    <p id="marketingEmail"></p>
+    
+    <button onclick="affirmPurchase()" id="affirmButton">AFFIRM</button>
     <p id="statusMessage"></p>
   </div>
 </body>
