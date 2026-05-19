@@ -13,6 +13,7 @@
 var favoriteFruit;
 var fruitQuantity;
 var usersName;
+var uid;
 /***************************************************************/
 function fb_authenticate() {
     console.log("Logging in")
@@ -22,7 +23,7 @@ function fb_authenticate() {
             console.log(user)
             // User is signed in, see docs for a list of avaliable properties
             // https://firebase.google.com/docs/refrence/js/firebase.User
-            var uid = user.uid;
+            uid = user.uid;
 
             // ...
         } else {
@@ -39,6 +40,7 @@ function fb_authenticate() {
         }
     });
 }
+
 function fb_error() {
     // Don't forget your error handling!
 }
@@ -56,43 +58,53 @@ function fb_write() {
 console.log("Running Sal's Strawberries")
 
 function writeForm() {
-    // Get the form data
-    favoriteFruit = document.getElementById("favoriteFruit").value;
-    usersName = document.getElementById("name").value;
-    fruitQuantity = document.getElementById("fruitQuantity").value;
-    console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
+    if (uid == null) {
+        console.log("you gotta login first fella!")
+    } else {
+        // Get the form data
+        favoriteFruit = document.getElementById("favoriteFruit").value;
+        usersName = document.getElementById("name").value;
+        fruitQuantity = document.getElementById("fruitQuantity").value;
+        console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
 
-    //creates the user table and adds them as a user
-    createUserTable()
+        //creates the user table and adds them as a user
+        createUserTable()
 
-    //add the user to the customer database
-    firebase.database().ref('/customers/').set({
-
-        User: {
-            Name: usersName,
-            Amount: fruitQuantity,
-            Favorite: favoriteFruit,
-        },
-
-    });
-
-    //Display the users name once they enter their details
-    document.getElementById("displayName").innerHTML = "Hello " + usersName;
-
+        addUserToTable()
+    }
 }
 
 //create the initial table to store user data in the database
 function createUserTable() {
-    customers = {
+    strawberries = {
+        users: {
 
+        }
     }
-    firebase.database().ref('/').set(customers)
+
+    //when you create the table try taking a snapshot of the table and make that a string varaiable. Then in the future, when you update it instead add the updates to the varaible and add teh variable to the database
+    firebase.database().ref('/').set(strawberries)
 }
 
 //generate a marketing email
 function generateEmail() {
     document.getElementById("marketingEmail").innerHTML = "Hello " + usersName + "!" + "\nPress 'affirm' to receive " + fruitQuantity + " " + favoriteFruit + " by tommorow!";
-    
+
+}
+
+//add a new user to the user table
+function addUserToTable() {
+    //add the user to the customer database
+    //let user = uid;
+    //let details = 
+    firebase.database().ref('/strawberries/users/' + uid).update({
+        Name: usersName,
+        Amount: fruitQuantity,
+        Favorite: favoriteFruit,
+    });
+
+    //Display the users name once they enter their details
+    document.getElementById("displayName").innerHTML = "Hello " + usersName;
 }
 
 // function affirmPurchase() {
