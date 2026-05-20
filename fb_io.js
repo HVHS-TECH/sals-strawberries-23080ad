@@ -41,6 +41,8 @@ function fb_authenticate() {
     });
 }
 
+
+
 function fb_error() {
     // Don't forget your error handling!
 }
