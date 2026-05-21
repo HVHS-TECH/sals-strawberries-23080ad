@@ -60,32 +60,45 @@ function fb_write() {
 console.log("Running Sal's Strawberries")
 
 function writeForm() {
-    if (uid == null) {
-        console.log("you gotta login first fella!")
+
+    // Get the form data
+    favoriteFruit = document.getElementById("favoriteFruit").value;
+    usersName = document.getElementById("name").value;
+    fruitQuantity = document.getElementById("fruitQuantity").value;
+
+    //creates the user table and adds them as a user
+    if (usersName == null || favoriteFruit == null || fruitQuantity == null) {
+        alert("you must fill out all fields before submitting the form!");
+        
+        if (usersName == NaN || favoriteFruit == NaN) {
+            alert("One or more fields is incorrectly filled with a number!");
+            
+            
+            if (uid == null) {
+                alert("you gotta login first fella!");
+                
+            }
+        }
     } else {
-        // Get the form data
-        favoriteFruit = document.getElementById("favoriteFruit").value;
-        usersName = document.getElementById("name").value;
-        fruitQuantity = document.getElementById("fruitQuantity").value;
         console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
-
-        //creates the user table and adds them as a user
         createUserTable()
-
+        
         addUserToTable()
     }
+
 }
+
 
 //create the initial table to store user data in the database
 function createUserTable() {
-    strawberries = {
+    Sals_Strawberries = {
         users: {
 
         }
     }
 
     //when you create the table try taking a snapshot of the table and make that a string varaiable. Then in the future, when you update it instead add the updates to the varaible and add teh variable to the database
-    firebase.database().ref('/').set(strawberries)
+    firebase.database().ref('/').set(Sals_Strawberries)
 }
 
 //generate a marketing email
@@ -98,8 +111,7 @@ function generateEmail() {
 function addUserToTable() {
     //add the user to the customer database
     //let user = uid;
-    //let details = 
-    firebase.database().ref('/strawberries/users/' + uid).update({
+    firebase.database().ref('/Sals_Strawberries/users/' + uid).set({
         Name: usersName,
         Amount: fruitQuantity,
         Favorite: favoriteFruit,
@@ -109,8 +121,12 @@ function addUserToTable() {
     document.getElementById("displayName").innerHTML = "Hello " + usersName;
 }
 
-// function affirmPurchase() {
-//     console.log("purchase complete");
-//     var x = document.getElementById(affirmButton);
-//     if(affirmButton.style.display === none) affirmButton.display = "none";
-// }
+function affirmPurchase() {
+    if (fruitQuantity == null || favoriteFruit == null || usersName == null) {
+
+    } else {
+        console.log("purchase complete");
+        document.getElementById("statusMessage").innerHTML = "THANK YOU FOR AFFIRMING!";
+        document.getElementById("affirmButton").style.display = "none";
+    }
+}
