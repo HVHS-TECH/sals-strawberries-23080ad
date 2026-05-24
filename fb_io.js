@@ -67,27 +67,21 @@ function writeForm() {
     fruitQuantity = document.getElementById("fruitQuantity").value;
 
     //creates the user table and adds them as a user
-    if (usersName == null || favoriteFruit == null || fruitQuantity == null) {
-        alert("you must fill out all fields before submitting the form!");
-        
-        if (usersName == NaN || favoriteFruit == NaN) {
-            alert("One or more fields is incorrectly filled with a number!");
-            
-            
-            if (uid == null) {
-                alert("you gotta login first fella!");
-                
-            }
-        }
+    if (uid == null) {
+        console.log("you must log in");
+        alert("you must log in first")
     } else {
+        console.log("fruit quantity value: " + fruitQuantity)
+        console.log("users name value: " + usersName)
+        console.log("favorite fruit value: " + favoriteFruit)
+
         console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
         createUserTable()
-        
+
         addUserToTable()
+
     }
-
 }
-
 
 //create the initial table to store user data in the database
 function createUserTable() {
@@ -111,7 +105,7 @@ function generateEmail() {
 function addUserToTable() {
     //add the user to the customer database
     //let user = uid;
-    firebase.database().ref('/Sals_Strawberries/users/' + uid).set({
+    firebase.database().ref('/Sals_Strawberries/users/' + uid).update({
         Name: usersName,
         Amount: fruitQuantity,
         Favorite: favoriteFruit,
@@ -122,11 +116,7 @@ function addUserToTable() {
 }
 
 function affirmPurchase() {
-    if (fruitQuantity == null || favoriteFruit == null || usersName == null) {
-
-    } else {
-        console.log("purchase complete");
-        document.getElementById("statusMessage").innerHTML = "THANK YOU FOR AFFIRMING!";
-        document.getElementById("affirmButton").style.display = "none";
-    }
+    console.log("purchase complete");
+    document.getElementById("statusMessage").innerHTML = "THANK YOU FOR AFFIRMING! YOUR FRUIT WILL BE DELIVERED SOMEWHWERE IN 1-2 BUSINESS DAYS.";
+    document.getElementById("affirmButton").style.display = "none";
 }
