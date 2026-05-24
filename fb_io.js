@@ -41,20 +41,8 @@ function fb_authenticate() {
     });
 }
 
-
-
 function fb_error() {
     // Don't forget your error handling!
-}
-
-//fb_write will not work until i can link to an actual database anmd by exstension neither will google login, thnis means that i will need to:
-//link this in my own time
-//delete the duplicate firebase miniskills file
-//link all my files in one maneuverable location
-
-function fb_write() {
-    console.log("writing to database")
-    firebase.database().ref('/').set({ message: 'test' })
 }
 
 console.log("Running Sal's Strawberries")
@@ -66,7 +54,7 @@ function writeForm() {
     usersName = document.getElementById("name").value;
     fruitQuantity = document.getElementById("fruitQuantity").value;
     if (favoriteFruit == null || usersName == null || fruitQuantity == null) { return; }
-    
+
     //creates the user table and adds them as a user
     if (uid == null) {
         console.log("you must log in");
@@ -105,11 +93,11 @@ function generateEmail() {
 //add a new user to the user table
 function addUserToTable() {
     //add the user to the customer database
-    //let user = uid;
     firebase.database().ref('/Sals_Strawberries/users/' + uid).update({
         Name: usersName,
         Amount: fruitQuantity,
         Favorite: favoriteFruit,
+        
     });
 
     //Display the users name once they enter their details
