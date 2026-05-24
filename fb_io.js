@@ -65,7 +65,8 @@ function writeForm() {
     favoriteFruit = document.getElementById("favoriteFruit").value;
     usersName = document.getElementById("name").value;
     fruitQuantity = document.getElementById("fruitQuantity").value;
-
+    if (favoriteFruit == null || usersName == null || fruitQuantity == null) { return; }
+    
     //creates the user table and adds them as a user
     if (uid == null) {
         console.log("you must log in");
