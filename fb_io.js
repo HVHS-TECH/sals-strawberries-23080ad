@@ -65,23 +65,10 @@ function writeForm() {
         console.log("favorite fruit value: " + favoriteFruit)
 
         console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
-        createUserTable()
 
         addUserToTable()
 
     }
-}
-
-//create the initial table to store user data in the database
-function createUserTable() {
-    Sals_Strawberries = {
-        users: {
-
-        }
-    }
-
-    //when you create the table try taking a snapshot of the table and make that a string varaiable. Then in the future, when you update it instead add the updates to the varaible and add teh variable to the database
-    firebase.database().ref('/').set(Sals_Strawberries)
 }
 
 //generate a marketing email
