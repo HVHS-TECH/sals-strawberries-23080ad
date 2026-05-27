@@ -93,7 +93,8 @@ function generateEmail() {
 //add a new user to the user table
 function addUserToTable() {
     //add the user to the customer database
-    firebase.database().ref('/Sals_Strawberries/users/' + uid).update({
+    console.log("writing to db");
+    firebase.database().ref('/Sals_Strawberries/users/' + firebase.auth().currentUser.uid + "/").set({
         Name: usersName,
         Amount: fruitQuantity,
         Favorite: favoriteFruit,
