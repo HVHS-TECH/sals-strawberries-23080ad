@@ -59,6 +59,11 @@ function writeForm() {
     if (uid == null) {
         console.log("you must log in");
         alert("you must log in first")
+        
+        if (fruitQuantity.length > 200) {
+            
+
+        }
     } else {
         console.log("fruit quantity value: " + fruitQuantity)
         console.log("users name value: " + usersName)
@@ -66,7 +71,7 @@ function writeForm() {
 
         console.log("Hello " + usersName + ". your favourite fruit is " + favoriteFruit + " and you want " + fruitQuantity + " of them.")
 
-        addUserToTable()
+        addUserToTable();
 
     }
 }
@@ -85,7 +90,7 @@ function addUserToTable() {
         Name: usersName,
         Amount: fruitQuantity,
         Favorite: favoriteFruit,
-        
+
     });
 
     //Display the users name once they enter their details
