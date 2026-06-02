@@ -14,6 +14,7 @@ var favoriteFruit;
 var fruitQuantity;
 var usersName;
 var uid;
+var favoriteFruitScore;
 /***************************************************************/
 function fb_authenticate() {
     console.log("Logging in")
@@ -59,11 +60,7 @@ function writeForm() {
     if (uid == null) {
         console.log("you must log in");
         alert("you must log in first")
-        
-        if (fruitQuantity.length > 200) {
-            
 
-        }
     } else {
         console.log("fruit quantity value: " + fruitQuantity)
         console.log("users name value: " + usersName)
@@ -87,9 +84,9 @@ function addUserToTable() {
     //add the user to the customer database
     console.log("writing to db");
     firebase.database().ref('/Sals_Strawberries/users/' + firebase.auth().currentUser.uid + "/").set({
-        Name: usersName,
-        Amount: fruitQuantity,
         Favorite: favoriteFruit,
+        Amount: fruitQuantity,
+        Name: usersName,
 
     });
 
@@ -101,4 +98,27 @@ function affirmPurchase() {
     console.log("purchase complete");
     document.getElementById("statusMessage").innerHTML = "THANK YOU FOR AFFIRMING! YOUR FRUIT WILL BE DELIVERED SOMEWHWERE IN 1-2 BUSINESS DAYS.";
     document.getElementById("affirmButton").style.display = "none";
+    updateFruitPopularity();
+}
+
+//update the popularity chart
+function updateFruitPopularity() {
+    console.log("writing to db");
+
+    //sets the fruit score to the current score in the database of the specific fruit allready chosen
+    favoriteFruitScore = firebase.database().ref('/Sals_Strawberries/Favourite Fruits/').once('value', updateFruitScore);
+    //sets the fruit score to the fruit score plus one
+
+    //sets the database score of the fruit to the fruit score variables new value
+
+    //if there is no database branch for that fruit, instead create one and set fruit scores value to one
+    //firebase.database().ref('/Sals_Strawberries/Favourite Fruits/' + favoriteFruit + "/").set(1);
+
+}
+
+function updateFruitScore(snapshot) {
+    favoriteFruitScore = snapshot.val()
+    console.log(favoriteFruitScore);
+    favoriteFruitScore = (favoriteFruitScore + 1)
+    firebase.database().ref('/Sals_Strawberries/Favourite Fruits/' + favoriteFruit + "/").set('favoriteFruitScore');
 }
